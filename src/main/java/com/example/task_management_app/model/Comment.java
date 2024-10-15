@@ -23,6 +23,7 @@ import org.hibernate.annotations.SQLRestriction;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "task_id")
