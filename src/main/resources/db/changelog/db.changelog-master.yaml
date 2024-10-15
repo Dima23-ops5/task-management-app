@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/01-create-user-table.yaml
+  - include:
+      file: db/changelog/changes/02-create-role-table.yaml
+  - include:
+      file: db/changelog/changes/03-create-user-and-roles-table.yaml
+  - include:
+      file: db/changelog/changes/04-create-project-table.yaml
+  - include:
+      file: db/changelog/changes/05-create-task-table.yaml
+  - include:
+      file: db/changelog/changes/06-create-label-table.yaml
+  - include:
+      file: db/changelog/changes/07-create-attachment-table.yaml
+  - include:
+      file: db/changelog/changes/08-create-comment-table.yaml

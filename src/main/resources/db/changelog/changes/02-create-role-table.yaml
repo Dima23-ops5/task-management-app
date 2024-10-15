@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-role-table
+      author: Dmytro Makhanok
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
