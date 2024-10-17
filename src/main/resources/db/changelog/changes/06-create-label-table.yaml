@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-label-table
+      author: Dmytro Makhanok
+      changes:
+        - createTable:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: tinyint(1)
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
