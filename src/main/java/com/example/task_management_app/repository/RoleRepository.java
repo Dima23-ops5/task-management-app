@@ -3,7 +3,10 @@ package com.example.task_management_app.repository;
 import com.example.task_management_app.model.Role;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Optional<Role> findRoleByRoleName(Role.RoleName name);
+    @Query("SELECT r FROM Role r WHERE r.roleName = :roleName")
+    Optional<Role> findRoleByRoleName(@Param("roleName") Role.RoleName roleName);
 }
