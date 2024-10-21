@@ -2,6 +2,8 @@ package com.example.task_management_app.service.impl;
 
 import com.example.task_management_app.dto.UserDto;
 import com.example.task_management_app.dto.UserRegistrationRequestDto;
+import com.example.task_management_app.dto.UserUpdateRequestDto;
+import com.example.task_management_app.dto.UserUpdateRoleDto;
 import com.example.task_management_app.exception.RegistrationException;
 import com.example.task_management_app.mapper.UserMapper;
 import com.example.task_management_app.model.Role;
@@ -10,6 +12,8 @@ import com.example.task_management_app.repository.RoleRepository;
 import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,5 +41,40 @@ public class UserServiceImpl implements UserService {
                         )
                 )));
         return userMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public UserDto updateUserRoleById(Long userId, UserUpdateRoleDto updateRoleDto) {
+        User user = userRepository.findUserById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find user with id: " + userId)
+        );
+        Role.RoleName role = Role.RoleName.valueOf(updateRoleDto.roleName().trim().toUpperCase());
+        Set<Role> roles = new HashSet<>();
+        roles.add((roleRepository.findRoleByRoleName(role)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Cannot find role with role name: "
+                                + updateRoleDto.roleName()))));
+        user.setRole(roles);
+        return userMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public UserDto getUserById(Long userId) {
+        User user = userRepository.findUserById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find user with id: " + userId)
+        );
+
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto) {
+        User user = userRepository.findUserById(userId).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find user with id: " + userId)
+        );
+        User afterUpdate = userMapper.updateUser(user, userUpdateRequestDto);
+        afterUpdate.setRole(user.getRole());
+        afterUpdate.setPassword(user.getPassword());
+        return userMapper.toDto(userRepository.save(afterUpdate));
     }
 }
