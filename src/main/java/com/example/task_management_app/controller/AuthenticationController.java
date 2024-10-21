@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Authentication management", description = "Endpoints for managing authentication of users")
+@Tag(name = "Authentication management",
+        description = "Endpoints for managing authentication of users")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
@@ -34,7 +35,8 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Login user", description = "Log in the user if they already exist and return the user's token")
+    @Operation(summary = "Login user",
+            description = "Log in the user if they already exist and return the user's token")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {
         return authenticationService.authenticate(requestDto);
     }
