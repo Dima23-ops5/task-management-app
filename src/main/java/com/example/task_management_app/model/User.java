@@ -53,6 +53,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> role = new HashSet<>();
+    @ManyToMany(mappedBy = "users")
+    private Set<Project> projects = new HashSet<>();
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
