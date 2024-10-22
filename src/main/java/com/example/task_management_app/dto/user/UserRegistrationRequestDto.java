@@ -1,4 +1,4 @@
-package com.example.task_management_app.dto;
+package com.example.task_management_app.dto.user;
 
 public record UserRegistrationRequestDto(
         String userName,

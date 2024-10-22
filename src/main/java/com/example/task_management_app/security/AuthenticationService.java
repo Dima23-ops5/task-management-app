@@ -1,8 +1,7 @@
 package com.example.task_management_app.security;
 
-import com.example.task_management_app.dto.UserLoginRequestDto;
-import com.example.task_management_app.dto.UserLoginResponseDto;
-import com.example.task_management_app.model.User;
+import com.example.task_management_app.dto.user.UserLoginRequestDto;
+import com.example.task_management_app.dto.user.UserLoginResponseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

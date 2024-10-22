@@ -1,9 +1,9 @@
 package com.example.task_management_app.service.impl;
 
-import com.example.task_management_app.dto.UserDto;
-import com.example.task_management_app.dto.UserRegistrationRequestDto;
-import com.example.task_management_app.dto.UserUpdateRequestDto;
-import com.example.task_management_app.dto.UserUpdateRoleDto;
+import com.example.task_management_app.dto.user.UserDto;
+import com.example.task_management_app.dto.user.UserRegistrationRequestDto;
+import com.example.task_management_app.dto.user.UserUpdateRequestDto;
+import com.example.task_management_app.dto.user.UserUpdateRoleDto;
 import com.example.task_management_app.exception.RegistrationException;
 import com.example.task_management_app.mapper.UserMapper;
 import com.example.task_management_app.model.Role;
@@ -12,7 +12,6 @@ import com.example.task_management_app.repository.RoleRepository;
 import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
-
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
