@@ -1,7 +1,6 @@
-package com.example.task_management_app.dto;
+package com.example.task_management_app.dto.user;
 
-public record UserDto(
-        Long id,
+public record UserUpdateRequestDto(
         String userName,
         String firstName,
         String lastName,

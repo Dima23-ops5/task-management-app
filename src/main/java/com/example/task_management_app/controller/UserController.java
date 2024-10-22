@@ -1,13 +1,14 @@
 package com.example.task_management_app.controller;
 
-import com.example.task_management_app.dto.UserDto;
-import com.example.task_management_app.dto.UserUpdateRequestDto;
-import com.example.task_management_app.dto.UserUpdateRoleDto;
+import com.example.task_management_app.dto.user.UserDto;
+import com.example.task_management_app.dto.user.UserUpdateRequestDto;
+import com.example.task_management_app.dto.user.UserUpdateRoleDto;
 import com.example.task_management_app.model.User;
 import com.example.task_management_app.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "User management", description = "Endpoints for managing users")
@@ -30,7 +32,9 @@ public class UserController {
     @Operation(summary = "Update user's role",
             description = "Updating user's role by user id and role name,"
                     + " update can only administrator")
-    public UserDto updateUserRole(@PathVariable(value = "id")Long userId, @RequestBody UserUpdateRoleDto userUpdateRoleDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public UserDto updateUserRole(@PathVariable(value = "id")Long userId,
+                                  @RequestBody UserUpdateRoleDto userUpdateRoleDto) {
         return userService.updateUserRoleById(userId, userUpdateRoleDto);
     }
 
@@ -38,6 +42,7 @@ public class UserController {
     @PreAuthorize(value = "hasAuthority('USER')")
     @Operation(summary = "Get information about the current user",
             description = "Retrieve and return information about the currently authenticated user.")
+    @ResponseStatus(HttpStatus.OK)
     public UserDto getAllInformationAboutUser(Authentication authentication) {
         Long userId = getCurrentUserId(authentication);
         return userService.getUserById(userId);
@@ -47,6 +52,7 @@ public class UserController {
     @PreAuthorize(value = "hasAuthority('USER')")
     @Operation(summary = "Update user information",
             description = "Update the authenticated user's personal profile information.")
+    @ResponseStatus(HttpStatus.OK)
     public UserDto updateUser(Authentication authentication,
                               @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         Long userId = getCurrentUserId(authentication);
