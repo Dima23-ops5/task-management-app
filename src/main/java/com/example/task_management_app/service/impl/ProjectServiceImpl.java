@@ -50,6 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public ProjectDto updateProjectById(Long id, ProjectUpdateRequestDto requestDto) {
         Project project = projectRepository.findProjectById(id).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find project with id: " + id)

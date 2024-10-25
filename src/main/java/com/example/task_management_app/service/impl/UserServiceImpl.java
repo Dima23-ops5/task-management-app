@@ -12,6 +12,7 @@ import com.example.task_management_app.repository.RoleRepository;
 import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     @Override
+    @Transactional
     public UserDto registerUser(UserRegistrationRequestDto requestDto) {
         if (userRepository.findUserByEmail(requestDto.email()).isPresent()) {
             throw new RegistrationException("User already exists");
@@ -43,6 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto updateUserRoleById(Long userId, UserUpdateRoleDto updateRoleDto) {
         User user = userRepository.findUserById(userId).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find user with id: " + userId)
@@ -67,6 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto) {
         User user = userRepository.findUserById(userId).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find user with id: " + userId)
