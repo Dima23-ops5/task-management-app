@@ -8,7 +8,6 @@ public record ProjectCreateRequestDto(
         String description,
         LocalDate startDate,
         LocalDate endDate,
-        String status,
         Set<Long> usersId
 ) {
 }

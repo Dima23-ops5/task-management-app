@@ -28,13 +28,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Transactional
     public ProjectDto createProject(ProjectCreateRequestDto requestDto) {
         Project project = projectMapper.toEntity(requestDto);
+        project.setStatus(Project.Status.INITIATED);
         projectRepository.save(project);
-        Set<User> users = new HashSet<>();
-        for (Long id : requestDto.usersId()) {
-            users.add(userRepository.findUserById(id).orElseThrow(
-                    () -> new EntityNotFoundException("Cannot find user with id: " + id)));
-        }
-        project.setUsers(users);
+        project.setUsers(getUsers(requestDto.usersId()));
         return projectMapper.toDto(projectRepository.save(project));
     }
 
@@ -59,12 +55,7 @@ public class ProjectServiceImpl implements ProjectService {
                 () -> new EntityNotFoundException("Cannot find project with id: " + id)
         );
         Project afterUpdating = projectMapper.updateEntity(requestDto, project);
-        Set<User> users = new HashSet<>();
-        for (Long userId : requestDto.usersId()) {
-            users.add(userRepository.findUserById(userId).orElseThrow(
-                    () -> new EntityNotFoundException("Cannot find user with id: " + id)));
-        }
-        afterUpdating.setUsers(users);
+        afterUpdating.setUsers(getUsers(requestDto.usersId()));
         return projectMapper.toDto(projectRepository.save(afterUpdating));
     }
 
@@ -73,4 +64,12 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.deleteById(id);
     }
 
+    private Set<User> getUsers(Set<Long> userIds) {
+        Set<User> users = new HashSet<>();
+        for (Long userId : userIds) {
+            users.add(userRepository.findUserById(userId).orElseThrow(
+                    () -> new EntityNotFoundException("Cannot find user with id: " + userId)));
+        }
+        return users;
+    }
 }
