@@ -10,6 +10,6 @@ public record TaskUpdateRequestDto(
         LocalDate dueDate,
         Long projectId,
         Long userId,
-        Set<Long> labelDto
+        Set<Long> labelIds
 ) {
 }
