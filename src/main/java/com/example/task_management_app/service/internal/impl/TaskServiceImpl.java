@@ -1,4 +1,4 @@
-package com.example.task_management_app.service.impl;
+package com.example.task_management_app.service.internal.impl;
 
 import com.example.task_management_app.dto.task.TaskCreateRequestDto;
 import com.example.task_management_app.dto.task.TaskDto;
@@ -10,7 +10,7 @@ import com.example.task_management_app.repository.LabelRepository;
 import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.TaskRepository;
 import com.example.task_management_app.repository.UserRepository;
-import com.example.task_management_app.service.TaskService;
+import com.example.task_management_app.service.internal.TaskService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.Collections;

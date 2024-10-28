@@ -4,9 +4,11 @@ import com.example.task_management_app.dto.user.UserDto;
 import com.example.task_management_app.dto.user.UserUpdateRequestDto;
 import com.example.task_management_app.dto.user.UserUpdateRoleDto;
 import com.example.task_management_app.model.User;
-import com.example.task_management_app.service.UserService;
+import com.example.task_management_app.service.internal.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,8 +35,8 @@ public class UserController {
             description = "Updating user's role by user id and role name,"
                     + " update can only administrator")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto updateUserRole(@PathVariable(value = "id")Long userId,
-                                  @RequestBody UserUpdateRoleDto userUpdateRoleDto) {
+    public UserDto updateUserRole(@PathVariable(value = "id") @Positive Long userId,
+                                  @RequestBody @Valid UserUpdateRoleDto userUpdateRoleDto) {
         return userService.updateUserRoleById(userId, userUpdateRoleDto);
     }
 
@@ -54,7 +56,7 @@ public class UserController {
             description = "Update the authenticated user's personal profile information.")
     @ResponseStatus(HttpStatus.OK)
     public UserDto updateUser(Authentication authentication,
-                              @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+                              @RequestBody @Valid UserUpdateRequestDto userUpdateRequestDto) {
         Long userId = getCurrentUserId(authentication);
         return userService.updateUser(userId, userUpdateRequestDto);
     }

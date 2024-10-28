@@ -1,4 +1,4 @@
-package com.example.task_management_app.service;
+package com.example.task_management_app.service.internal;
 
 import com.example.task_management_app.dto.label.LabelCreateRequestDto;
 import com.example.task_management_app.dto.label.LabelDto;

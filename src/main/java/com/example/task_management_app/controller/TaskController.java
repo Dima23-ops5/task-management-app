@@ -3,7 +3,7 @@ package com.example.task_management_app.controller;
 import com.example.task_management_app.dto.task.TaskCreateRequestDto;
 import com.example.task_management_app.dto.task.TaskDto;
 import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
-import com.example.task_management_app.service.TaskService;
+import com.example.task_management_app.service.internal.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -4,7 +4,7 @@ import com.example.task_management_app.dto.project.ProjectCreateRequestDto;
 import com.example.task_management_app.dto.project.ProjectDto;
 import com.example.task_management_app.dto.project.ProjectUpdateRequestDto;
 import com.example.task_management_app.model.User;
-import com.example.task_management_app.service.ProjectService;
+import com.example.task_management_app.service.internal.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -65,7 +65,7 @@ public class ProjectController {
             description = "Update and return updated project by it's id")
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     public ProjectDto updateProjectById(@PathVariable Long id,
-                                        @RequestBody ProjectUpdateRequestDto requestDto) {
+                                        @RequestBody @Valid ProjectUpdateRequestDto requestDto) {
         return projectService.updateProjectById(id, requestDto);
     }
 

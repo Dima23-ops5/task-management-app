@@ -3,7 +3,7 @@ package com.example.task_management_app.controller;
 import com.example.task_management_app.dto.comment.CommentCreateRequestDto;
 import com.example.task_management_app.dto.comment.CommentDto;
 import com.example.task_management_app.model.User;
-import com.example.task_management_app.service.CommentService;
+import com.example.task_management_app.service.internal.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

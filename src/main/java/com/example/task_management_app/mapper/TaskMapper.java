@@ -32,4 +32,9 @@ public interface TaskMapper {
     default Long getUserId(User user) {
         return user.getId();
     }
+
+    @Named(value = "taskToDto")
+    default TaskDto taskToDto(Task task) {
+        return toDto(task);
+    }
 }

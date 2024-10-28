@@ -1,4 +1,4 @@
-package com.example.task_management_app.service.impl;
+package com.example.task_management_app.service.internal.impl;
 
 import com.example.task_management_app.dto.comment.CommentCreateRequestDto;
 import com.example.task_management_app.dto.comment.CommentDto;
@@ -7,7 +7,7 @@ import com.example.task_management_app.model.Comment;
 import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.CommentRepository;
 import com.example.task_management_app.repository.TaskRepository;
-import com.example.task_management_app.service.CommentService;
+import com.example.task_management_app.service.internal.CommentService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;

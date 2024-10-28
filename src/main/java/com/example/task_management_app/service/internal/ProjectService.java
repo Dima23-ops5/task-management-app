@@ -1,4 +1,4 @@
-package com.example.task_management_app.service;
+package com.example.task_management_app.service.internal;
 
 import com.example.task_management_app.dto.project.ProjectCreateRequestDto;
 import com.example.task_management_app.dto.project.ProjectDto;

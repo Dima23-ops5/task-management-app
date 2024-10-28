@@ -3,9 +3,10 @@ package com.example.task_management_app.controller;
 import com.example.task_management_app.dto.label.LabelCreateRequestDto;
 import com.example.task_management_app.dto.label.LabelDto;
 import com.example.task_management_app.dto.label.LabelUpdateRequestDto;
-import com.example.task_management_app.service.LabelService;
+import com.example.task_management_app.service.internal.LabelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,9 @@ public class LabelController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create new label",
-            description = "Creting a new label and saving it to database")
+            description = "Creating a new label and saving it to database")
     @PreAuthorize(value = "hasAuthority('ADMIN')")
-    public LabelDto createLabel(@RequestBody LabelCreateRequestDto requestDto) {
+    public LabelDto createLabel(@RequestBody @Valid LabelCreateRequestDto requestDto) {
         return labelService.createLabel(requestDto);
     }
 
@@ -53,7 +54,7 @@ public class LabelController {
             description = "Updating and return updated label by it's id")
     @PreAuthorize(value = "hasAuthority('ADMIN')")
     public LabelDto updateLabel(@PathVariable @Positive Long id,
-                                @RequestBody LabelUpdateRequestDto requestDto) {
+                                @RequestBody @Valid LabelUpdateRequestDto requestDto) {
         return labelService.updateLabelById(id, requestDto);
     }
 

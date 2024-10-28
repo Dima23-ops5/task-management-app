@@ -1,4 +1,4 @@
-package com.example.task_management_app.service.impl;
+package com.example.task_management_app.service.internal.impl;
 
 import com.example.task_management_app.dto.project.ProjectCreateRequestDto;
 import com.example.task_management_app.dto.project.ProjectDto;
@@ -8,7 +8,7 @@ import com.example.task_management_app.model.Project;
 import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.UserRepository;
-import com.example.task_management_app.service.ProjectService;
+import com.example.task_management_app.service.internal.ProjectService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.HashSet;
