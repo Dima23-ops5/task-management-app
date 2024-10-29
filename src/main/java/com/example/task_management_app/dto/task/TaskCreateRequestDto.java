@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 public record TaskCreateRequestDto(
+        @NotBlank(message = "Name can't be null") String name,
         @NotBlank(message = "Description can't be null") String description,
         @NotBlank(message = "Priority can't be null") String priority,
         @NotNull LocalDate dueDate,

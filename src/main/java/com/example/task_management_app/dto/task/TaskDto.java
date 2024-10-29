@@ -6,6 +6,7 @@ import java.util.Set;
 
 public record TaskDto(
         Long id,
+        String name,
         String description,
         String priority,
         String status,

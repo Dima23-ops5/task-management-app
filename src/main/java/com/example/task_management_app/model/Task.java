@@ -36,6 +36,8 @@ public class Task {
     @Column(nullable = false, unique = true)
     private Long id;
     @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
     private String description;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
