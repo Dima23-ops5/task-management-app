@@ -1,5 +1,9 @@
 package com.example.task_management_app.service.internal.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
 import com.example.task_management_app.dto.user.UserDto;
 import com.example.task_management_app.dto.user.UserRegistrationRequestDto;
 import com.example.task_management_app.mapper.UserMapper;
@@ -7,6 +11,7 @@ import com.example.task_management_app.model.Role;
 import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.RoleRepository;
 import com.example.task_management_app.repository.UserRepository;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,13 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -55,10 +53,12 @@ class UserServiceImplTest {
         userRole.setId(1L);
         userRole.setRoleName(Role.RoleName.USER);
 
-        UserDto excepted = new UserDto(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail());
+        UserDto excepted = new UserDto(user.getId(), user.getUsername(), user.getFirstName(),
+                user.getLastName(), user.getEmail());
         when(userMapper.toEntity(requestDto)).thenReturn(user);
         when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
-        when(roleRepository.findRoleByRoleName(userRole.getRoleName())).thenReturn(Optional.of(userRole));
+        when(roleRepository.findRoleByRoleName(userRole.getRoleName()))
+                .thenReturn(Optional.of(userRole));
         when(userRepository.save(user)).thenReturn(user);
         when(userMapper.toDto(user)).thenReturn(excepted);
         UserDto actual = userServiceImpl.registerUser(requestDto);
