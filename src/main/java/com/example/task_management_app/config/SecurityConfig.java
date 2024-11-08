@@ -26,11 +26,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeRequests ->
                                 authorizeRequests.requestMatchers(
-                                        "/swagger-ui/**",
-                                        "/v3/api-docs/**",
-                                        "/api/auth/**",
-                                        "/errors"
-                                ).permitAll()
+                                                "/swagger-ui/**",
+                                                "/v3/api-docs/**",
+                                                "/api/auth/**",
+                                                "/errors"
+                                        ).permitAll()
                                         .anyRequest()
                                         .authenticated()
                 ).sessionManagement(sessionManagement ->

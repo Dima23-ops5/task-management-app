@@ -5,7 +5,9 @@ import com.example.task_management_app.dto.task.TaskDto;
 import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
 import com.example.task_management_app.mapper.TaskMapper;
 import com.example.task_management_app.model.Label;
+import com.example.task_management_app.model.Project;
 import com.example.task_management_app.model.Task;
+import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.LabelRepository;
 import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.TaskRepository;
@@ -68,7 +70,15 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Cannot find task with id: " + id)
         );
+        Project project = projectRepository.findProjectById(requestDto.projectId()).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find project with id: "
+                        + requestDto.projectId()));
+        User user = userRepository.findUserById(requestDto.userId()).orElseThrow(
+                () -> new EntityNotFoundException("Cannot find user with id: "
+                        + requestDto.userId()));
         Task afterUpdating = taskMapper.updateTask(requestDto, task);
+        task.setProject(project);
+        task.setAssignee(user);
         Set<Label> labels = getLabelByIds(requestDto.labelIds());
         afterUpdating.setLabels(labels);
         return taskMapper.toDto(taskRepository.save(afterUpdating));

@@ -150,6 +150,8 @@ class TaskServiceImplTest {
 
         when(taskRepository.findById(task.getId())).thenReturn(Optional.of(task));
         when(taskMapper.updateTask(requestDto, task)).thenReturn(expected);
+        when(projectRepository.findProjectById(project.getId())).thenReturn(Optional.of(project));
+        when(userRepository.findUserById(user.getId())).thenReturn(Optional.of(user));
         when(taskRepository.save(expected)).thenReturn(expected);
         when(taskMapper.toDto(expected)).thenReturn(expectedDto);
 
