@@ -80,7 +80,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Create task correctly")
+    @DisplayName(value = "Create a New Task - Success")
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void createTask_Ok() throws Exception {
         TaskCreateRequestDto requestDto = new TaskCreateRequestDto("Database Optimization",
@@ -121,7 +121,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Get all tasks by project id")
+    @DisplayName(value = "Retrieve All Tasks Containing Project with ID = 2 - Expected Two Tasks")
     @WithMockUser(username = "user", roles = {"USER"})
     public void getAllTasks_ReturnTwoTasks_Ok() throws Exception {
         TaskDto task1 = new TaskDto(1L, "Develop Game Logic",
@@ -154,7 +154,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Get task by id")
+    @DisplayName(value = "Retrieve Task by ID - Success")
     @WithMockUser(username = "user", roles = {"USER"})
     public void getTaskById_Ok() throws Exception {
         TaskDto expected = new TaskDto(3L, "Testing and Bug Fixing",
@@ -182,7 +182,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Update task by id")
+    @DisplayName(value = "Update Task - Success")
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void updateTaskById_Ok() throws Exception {
         TaskUpdateRequestDto requestDto = new TaskUpdateRequestDto("Implement Login Feature",
@@ -218,7 +218,7 @@ class TaskControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Delete task by id")
+    @DisplayName(value = "Delete Task - Success (No Content Returned)")
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void deleteTaskById_ReturnNoContent() throws Exception {
         MvcResult result = mockMvc.perform(delete("/api/tasks/5")

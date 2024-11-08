@@ -1,0 +1,1 @@
+DELETE FROM labels WHERE id = 4 AND id = 5;

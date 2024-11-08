@@ -77,7 +77,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Update user role")
+    @DisplayName(value = "Update User's Role - Success")
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     public void updateUserRoleByUserId_Ok() throws Exception {
         UserUpdateRoleDto userUpdateRoleDto = new UserUpdateRoleDto("ADMIN");
@@ -104,7 +104,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Get current authenticated user")
+    @DisplayName(value = "Retrieve current authenticated User by ID - Success")
     @WithUserDetails("bwilliams@example.com")
     public void getAllInformationAboutCurrentUser_Ok() throws Exception {
         User user = new User();
@@ -141,7 +141,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName(value = "Update personal information")
+    @DisplayName(value = "Update User's information - Success")
     @WithUserDetails("user@example.com")
     @Sql(scripts = "/database/user/add-user-for-updating.sql",
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
