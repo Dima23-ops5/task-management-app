@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
@@ -52,7 +54,9 @@ class TaskRepositoryTest {
         Long projectId = 2L;
 
         List<Task> expected = List.of(task1, task2);
-        List<Task> actual = taskRepository.findAllByProjectId(projectId);
+        Pageable pageable = PageRequest.of(0,2);
+        List<Task> actual = taskRepository.findAllByProjectId(projectId, pageable).stream()
+                .toList();
 
         assertNotNull(actual);
         assertEquals(expected.get(FIRST_TASK_INDEX).getId(),

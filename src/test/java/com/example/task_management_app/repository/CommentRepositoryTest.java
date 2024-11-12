@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
@@ -50,7 +53,9 @@ class CommentRepositoryTest {
         comment2.setTimestamp(LocalDateTime.parse("2024-11-03 14:25:00", formatter));
 
         List<Comment> expected = List.of(comment1, comment2);
-        List<Comment> actual = commentRepository.findAllByTaskId(1L);
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<Comment> commentPage = commentRepository.findAllByTaskId(1L, pageable);
+        List<Comment> actual = commentPage.stream().toList();
 
         assertNotNull(actual);
         assertEquals(2, actual.size());
@@ -71,7 +76,9 @@ class CommentRepositoryTest {
     @Test
     @DisplayName("Should return empty list for task whithout comments")
     public void findAllCommentsByTaskId_EmptyList() {
-        List<Comment> actual = commentRepository.findAllByTaskId(2L);
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Comment> commentPage = commentRepository.findAllByTaskId(2L, pageable);
+        List<Comment> actual = commentPage.stream().toList();
 
         assertEquals(0, actual.size());
     }

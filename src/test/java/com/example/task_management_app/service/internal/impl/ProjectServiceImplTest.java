@@ -26,6 +26,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class ProjectServiceImplTest {
@@ -81,20 +85,23 @@ class ProjectServiceImplTest {
         ProjectDto projectDto1 = projectToProjectDto(project1);
         ProjectDto projectDto2 = projectToProjectDto(project2);
 
-        List<Project> projects = List.of(project1, project2);
+        Pageable pageable = PageRequest.of(0, 2);
+        List<Project> projectList = List.of(project1, project2);
+        Page<Project> projects = new PageImpl<>(projectList, pageable, projectList.size());
 
-        when(projectRepository.findAllByUserId(user.getId())).thenReturn(projects);
+        when(projectRepository.findAllByUsersId(user.getId(), pageable)).thenReturn(projects);
         when(projectMapper.toDto(project1)).thenReturn(projectDto1);
         when(projectMapper.toDto(project2)).thenReturn(projectDto2);
 
         List<ProjectDto> expected = List.of(projectDto1, projectDto2);
-        List<ProjectDto> actual = projectService.findUserProjects(user.getId());
+        List<ProjectDto> actual = projectService.findUserProjects(user.getId(), pageable).stream()
+                .toList();
 
         assertNotNull(actual);
         assertEquals(2, actual.size());
         assertEquals(expected, actual);
 
-        verify(projectRepository).findAllByUserId(user.getId());
+        verify(projectRepository).findAllByUsersId(user.getId(), pageable);
         verify(projectMapper).toDto(project1);
         verify(projectMapper).toDto(project2);
     }

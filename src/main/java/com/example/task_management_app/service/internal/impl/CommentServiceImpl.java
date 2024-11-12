@@ -3,6 +3,7 @@ package com.example.task_management_app.service.internal.impl;
 import com.example.task_management_app.dto.comment.CommentCreateRequestDto;
 import com.example.task_management_app.dto.comment.CommentDto;
 import com.example.task_management_app.exception.EmailSendingException;
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.mapper.CommentMapper;
 import com.example.task_management_app.model.Comment;
 import com.example.task_management_app.model.Task;
@@ -12,11 +13,13 @@ import com.example.task_management_app.repository.TaskRepository;
 import com.example.task_management_app.service.external.EmailService;
 import com.example.task_management_app.service.internal.CommentService;
 import jakarta.mail.MessagingException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,6 +40,22 @@ public class CommentServiceImpl implements CommentService {
         comment.setUser(user);
         comment.setTimestamp(LocalDateTime.now());
         comment.setTask(task);
+
+        sendNotificationEmailAsync(task, comment, user);
+
+        return commentMapper.toDto(commentRepository.save(comment));
+    }
+
+    @Override
+    public List<CommentDto> findAllComments(Long taskId, Pageable pageable) {
+        Page<Comment> commentPage = commentRepository.findAllByTaskId(taskId, pageable);
+        return commentPage.stream()
+                .map(commentMapper::toDto)
+                .toList();
+    }
+
+    @Async
+    public void sendNotificationEmailAsync(Task task, Comment comment, User user) {
         String email = task.getAssignee().getEmail();
         String subject = "New comment for the task: " + task.getName();
         String text = "Hello, " + task.getAssignee().getUsername() + "! \n\n"
@@ -49,13 +68,5 @@ public class CommentServiceImpl implements CommentService {
         } catch (MessagingException e) {
             throw new EmailSendingException("Cannot send message to email: " + email, e);
         }
-        return commentMapper.toDto(commentRepository.save(comment));
-    }
-
-    @Override
-    public List<CommentDto> findAllComments(Long taskId) {
-        return commentRepository.findAllByTaskId(taskId).stream()
-                .map(commentMapper::toDto)
-                .toList();
     }
 }

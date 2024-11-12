@@ -3,18 +3,18 @@ package com.example.task_management_app.service.internal.impl;
 import com.example.task_management_app.dto.label.LabelCreateRequestDto;
 import com.example.task_management_app.dto.label.LabelDto;
 import com.example.task_management_app.dto.label.LabelUpdateRequestDto;
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.mapper.LabelMapper;
 import com.example.task_management_app.model.Label;
 import com.example.task_management_app.repository.LabelRepository;
 import com.example.task_management_app.service.internal.LabelService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LabelServiceImpl implements LabelService {
     private final LabelRepository labelRepository;
     private final LabelMapper labelMapper;

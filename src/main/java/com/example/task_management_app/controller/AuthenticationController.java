@@ -34,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Login user",
             description = "Log in the user if they already exist and return the user's token")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {

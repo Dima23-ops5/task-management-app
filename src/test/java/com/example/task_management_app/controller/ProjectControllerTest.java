@@ -14,6 +14,7 @@ import com.example.task_management_app.dto.project.ProjectDto;
 import com.example.task_management_app.dto.project.ProjectUpdateRequestDto;
 import com.example.task_management_app.dto.user.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProjectControllerTest {
     @Autowired

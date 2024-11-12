@@ -48,41 +48,53 @@ This web application addresses several core challenges in project and task manag
 # Technologies and Tools used
 
 ---
-
 ## Technologies:
 
-- ### <a href="https://docs.oracle.com/en/java/javase/17/docs" target="_blank">  JAVA 17</a>
-- ### <a href="https://docs.spring.io/spring-boot/index.html" target="_blank">Spring Boot</a>
-- ### <a href="https://docs.spring.io/spring-security/reference/index.html" target="_blank"> Spring Boot Security </a>
-- ### <a href="https://docs.spring.io/spring-data/jpa/reference/index.html" target="_blank">Spring Data JPA </a>
-- ### <a href="https://projectlombok.org/features/" target="_blank">Lombok </a>
-- ### <a href="https://mapstruct.org/" target="_blank">MapStruck </a>
-- ### <a href="https://jwt.io/introduction" target="_blank">JSON Web Token </a>
-- ### <a href="https://tomcat.apache.org/tomcat-8.5-doc/index.html" target="_blank">Tomcat </a>
-- ### <a href="https://dev.mysql.com/doc/" target="_blank">MySql 8 </a>
-- ### <a href="https://hibernate.org/orm/documentation/6.6/" target="_blank">Hibernate </a>
-- ### <a href="https://docs.liquibase.com/home.html" target="_blank">Liquibase </a>
-- ### <a href="https://swagger.io/docs/" target="_blank">Swagger </a>
-- ### <a href="https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html" target="_blank">JpaRepository </a>
-- ### <a href="https://docs.spring.io/spring-boot/reference/io/validation.html" target="_blank">Spring Boot Validation </a>
-- ### <a href="https://docs.spring.io/spring-data/rest/reference/paging-and-sorting.html" target="_blank">Paginating & Sorting </a>
-- ### <a href="https://www.baeldung.com/spring-jpa-soft-delete" target="_blank">Soft Deleting </a>
-- ### <a href="https://www.baeldung.com/role-and-privilege-for-spring-security-registration" target="_blank">Access by roles </a>
-- ### <a href="https://www.baeldung.com/java-email" target="_blank">Email Sender</a>
+### Core Backend Technologies:
+- #### <a href="https://docs.oracle.com/en/java/javase/17/docs" target="_blank">  JAVA 17</a>
+- #### <a href="https://docs.spring.io/spring-boot/index.html" target="_blank">Spring Boot</a> (v3.3.4)
+- #### <a href="https://docs.spring.io/spring-data/jpa/reference/index.html" target="_blank">Spring Data JPA </a> (v3.3.4)
+- #### <a href="https://hibernate.org/orm/documentation/6.6/" target="_blank">Hibernate </a>
+- #### <a href="https://docs.liquibase.com/home.html" target="_blank">Liquibase </a> (v4.9.1)
+- #### <a href="https://tomcat.apache.org/tomcat-8.5-doc/index.html" target="_blank">Tomcat </a> (v3.3.4)
 
-## Tools:
+### Security & Authentication:
+- #### <a href="https://docs.spring.io/spring-security/reference/index.html" target="_blank"> Spring Boot Security </a> (v3.3.4)
+- #### <a href="https://jwt.io/introduction" target="_blank">JSON Web Token </a> (v0.11.5)
+- #### <a href="https://www.baeldung.com/role-and-privilege-for-spring-security-registration" target="_blank">Access by roles </a>
 
-- ### <a href="https://maven.apache.org/" target="_blank">Maven </a>
-- ### <a href="https://junit.org/junit5/" target="_blank"> JUnit 5 </a>
-- ### <a href="https://www.docker.com/" target="_blank"><picture>Docker </a>
-- ### <a href="https://testcontainers.com/" target="_blank">Testcontainers </a>
-- ### <a href="https://swagger.io/tools/swagger-ui/" target="_blank">Swagger UI </a>
-- ### <a href="https://www.postman.com/" target="_blank">Postman </a>
-- ### <a href="https://www.jetbrains.com/ru-ru/idea/" target="_blank">IntelliJ IDEA </a>
-- ### <a href="https://github.com/" target="_blank">GitHub </a>
-- ### <a href="https://jwt.io/" target="_blank">JWT </a>
-- ### <a href="https://www.dropbox.com/official-teams-page?_tk=paid_sem_goog_biz_pmax_int20&_camp=21506269140&_kw=|&_ad=||c&gad_source=1&gclid=Cj0KCQiA88a5BhDPARIsAFj595gN3Iacx0oNPcloqk65FsJgbYPbstsshf95S_jUugiAv8i1fnzvxjIaAr1FEALw_wcB" target="_blank">Dropbox </a>
-- ### <a href="https://aws.amazon.com/ru/free/?gclid=EAIaIQobChMIsYGZ5KHWiAMVJ1JBAh3PaTbzEAAYASAAEgI_uPD_BwE&trk=f17b4b4e-aa1b-4189-b0c4-81a19b53f625&sc_channel=ps&ef_id=EAIaIQobChMIsYGZ5KHWiAMVJ1JBAh3PaTbzEAAYASAAEgI_uPD_BwE:G:s&s_kwcid=AL!4422!3!645186168166!e!!g!!aws!19579892551!148838343321&all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc&awsf.Free%20Tier%20Types=*all&awsf.Free%20Tier%20Categories=*all" target="_blank"> AWS </a>
+### Data Processing & Utilities:
+- #### <a href="https://mapstruct.org/" target="_blank">MapStruck </a> (v1.5.5.Final)
+- #### <a href="https://projectlombok.org/features/" target="_blank">Lombok </a>
+- #### <a href="https://docs.spring.io/spring-boot/reference/io/validation.html" target="_blank">Spring Boot Validation </a>
+- #### <a href="https://docs.spring.io/spring-data/rest/reference/paging-and-sorting.html" target="_blank">Paginating & Sorting </a>
+- #### <a href="https://www.baeldung.com/spring-jpa-soft-delete" target="_blank">Soft Deleting </a>
+
+### Database:
+- #### <a href="https://dev.mysql.com/doc/" target="_blank">MySql 8 </a> (v8.0.33)
+- #### <a href="https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html" target="_blank">JpaRepository </a> (v3.3.4)
+
+### Communication & Documentation:
+- #### <a href="https://swagger.io/docs/" target="_blank">Swagger </a> (v2.1.0)
+- #### <a href="https://swagger.io/tools/swagger-ui/" target="_blank">Swagger UI </a> (v3.0)
+- #### <a href="https://www.baeldung.com/java-email" target="_blank">Email Sender</a>
+
+---
+
+## Development Tools:
+- #### <a href="https://maven.apache.org/" target="_blank">Maven </a>
+- #### <a href="https://junit.org/junit5/" target="_blank"> JUnit 5 </a>
+- #### <a href="https://www.docker.com/" target="_blank"><picture>Docker </a>
+- #### <a href="https://testcontainers.com/" target="_blank">Testcontainers </a> (v1.20.0)
+- #### <a href="https://www.postman.com/" target="_blank">Postman </a>
+- #### <a href="https://www.jetbrains.com/ru-ru/idea/" target="_blank">IntelliJ IDEA </a>
+- #### <a href="https://jwt.io/" target="_blank">JWT </a>
+
+---
+
+## Collaboration & Storage
+- #### <a href="https://github.com/" target="_blank">GitHub </a>
+- #### <a href="https://www.dropbox.com/official-teams-page?_tk=paid_sem_goog_biz_pmax_int20&_camp=21506269140&_kw=|&_ad=||c&gad_source=1&gclid=Cj0KCQiA88a5BhDPARIsAFj595gN3Iacx0oNPcloqk65FsJgbYPbstsshf95S_jUugiAv8i1fnzvxjIaAr1FEALw_wcB" target="_blank">Dropbox </a> (v5.3.0)
 
 </div>
 

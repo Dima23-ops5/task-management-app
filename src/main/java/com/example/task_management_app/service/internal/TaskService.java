@@ -6,11 +6,12 @@ import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface TaskService {
     TaskDto createNewTask(TaskCreateRequestDto requestDto);
 
-    List<TaskDto> findAllTasksForProject(Long projectId);
+    List<TaskDto> findAllTasksForProject(Long projectId, Pageable pageable);
 
     TaskDto findTaskById(Long id);
 

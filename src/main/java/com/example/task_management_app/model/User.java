@@ -42,18 +42,18 @@ public class User implements UserDetails {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @OneToMany(mappedBy = "assignee")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignee")
     private Set<Task> tasks = new HashSet<>();
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Comment> comments = new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> role = new HashSet<>();
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private Set<Project> projects = new HashSet<>();
     @Column(nullable = false)
     private Boolean isDeleted = false;

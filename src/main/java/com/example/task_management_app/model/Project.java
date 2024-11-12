@@ -45,9 +45,9 @@ public class Project {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-    @OneToMany(mappedBy = "project")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Task> tasks = new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_project",
             joinColumns = @JoinColumn(name = "project_id"),
