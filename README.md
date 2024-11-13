@@ -239,7 +239,7 @@ To explore and test the API endpoints, you can use Swagger. Swagger provides int
 [task-management.postman_collection.json](images%2Ftask-management.postman_collection.json)
 
 - ### Short instruction how to use postman collection
-You can view the instructional video via this link : https://www.loom.com/share/e17527dd620a4c1b9ad87e425a99ac05?sid=84ca2397-9c43-4914-be17-15dd78c0f7c2
+You can view the instructional video via this link : https://www.loom.com/share/8c874b3104fc436ab7494d383ea1e5b6?sid=5cdee694-22ea-4e5b-a283-346bfe1b5cfa
 
 </div>
 

@@ -17,6 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @EntityGraph(attributePaths = {"users", "users.role"})
     Page<Project> findAllByUsersId(@Param("userId")Long userId, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"users", "users.role"})
     Optional<Project> findProjectById(Long id);
 
     @Query("SELECT p FROM Project p WHERE p.endDate = :tomorrow ")
