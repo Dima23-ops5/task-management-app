@@ -10,6 +10,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -44,7 +47,8 @@ public class CommentController {
     @Operation(summary = "Get all task's comments",
             description = "Retrieve and return all task's comments")
     @PreAuthorize(value = "hasAuthority('USER')")
-    public List<CommentDto> getAllComments(@RequestParam @Positive Long taskId) {
-        return commentService.findAllComments(taskId);
+    public List<CommentDto> getAllComments(@RequestParam @Positive Long taskId,
+                                           @ParameterObject @PageableDefault Pageable pageable) {
+        return commentService.findAllComments(taskId, pageable);
     }
 }

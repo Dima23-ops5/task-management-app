@@ -3,8 +3,8 @@ package com.example.task_management_app.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.model.Project;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
@@ -49,7 +51,8 @@ class ProjectRepositoryTest {
 
         List<Project> expected = List.of(project1, project2);
 
-        List<Project> actual = projectRepository.findAllByUserId(1L);
+        Pageable pageable = PageRequest.of(0, 2);
+        List<Project> actual = projectRepository.findAllByUsersId(1L, pageable).stream().toList();
 
         assertNotNull(actual);
         assertEquals(expected.get(FIRST_PROJECT_INDEX).getId(),

@@ -3,18 +3,20 @@ package com.example.task_management_app.service.internal.impl;
 import com.example.task_management_app.dto.project.ProjectCreateRequestDto;
 import com.example.task_management_app.dto.project.ProjectDto;
 import com.example.task_management_app.dto.project.ProjectUpdateRequestDto;
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.mapper.ProjectMapper;
 import com.example.task_management_app.model.Project;
 import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.internal.ProjectService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,8 +37,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> findUserProjects(Long userId) {
-        return projectRepository.findAllByUserId(userId).stream()
+    public List<ProjectDto> findUserProjects(Long userId, Pageable pageable) {
+        Page<Project> projectPage = projectRepository.findAllByUsersId(userId, pageable);
+        return projectPage.stream()
                 .map(projectMapper::toDto)
                 .toList();
     }

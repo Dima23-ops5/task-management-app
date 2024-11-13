@@ -3,6 +3,7 @@ package com.example.task_management_app.service.internal.impl;
 import com.example.task_management_app.dto.task.TaskCreateRequestDto;
 import com.example.task_management_app.dto.task.TaskDto;
 import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.mapper.TaskMapper;
 import com.example.task_management_app.model.Label;
 import com.example.task_management_app.model.Project;
@@ -13,13 +14,14 @@ import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.TaskRepository;
 import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.internal.TaskService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,8 +52,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> findAllTasksForProject(Long projectId) {
-        return taskRepository.findAllByProjectId(projectId).stream()
+    public List<TaskDto> findAllTasksForProject(Long projectId, Pageable pageable) {
+        Page<Task> taskPage = taskRepository.findAllByProjectId(projectId, pageable);
+        return taskPage.stream()
                 .map(taskMapper::toDto)
                 .toList();
     }

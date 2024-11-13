@@ -11,6 +11,7 @@ import com.example.task_management_app.dto.comment.CommentCreateRequestDto;
 import com.example.task_management_app.dto.comment.CommentDto;
 import com.example.task_management_app.service.external.EmailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -39,6 +40,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+@Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CommentControllerTest {
     @Autowired

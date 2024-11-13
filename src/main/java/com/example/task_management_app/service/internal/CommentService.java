@@ -5,9 +5,10 @@ import com.example.task_management_app.dto.comment.CommentDto;
 import com.example.task_management_app.model.User;
 import jakarta.validation.constraints.Positive;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface CommentService {
     CommentDto addNewComment(CommentCreateRequestDto requestDto, User user);
 
-    List<CommentDto> findAllComments(@Positive Long taskId);
+    List<CommentDto> findAllComments(@Positive Long taskId, Pageable pageable);
 }

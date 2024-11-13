@@ -47,17 +47,17 @@ public class Task {
     private Status status;
     @Column(nullable = false)
     private LocalDate dueDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assignee_id")
     private User assignee;
-    @OneToMany(mappedBy = "task")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     private Set<Attachment> attachment = new HashSet<>();
-    @OneToMany(mappedBy = "task")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     private Set<Comment> comment = new HashSet<>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "task_labels",
             joinColumns = @JoinColumn(name = "task_id"),

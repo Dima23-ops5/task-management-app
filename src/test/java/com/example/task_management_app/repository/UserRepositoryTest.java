@@ -3,8 +3,8 @@ package com.example.task_management_app.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.model.User;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

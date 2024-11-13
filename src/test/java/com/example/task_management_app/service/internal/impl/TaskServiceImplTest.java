@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.example.task_management_app.dto.task.TaskCreateRequestDto;
 import com.example.task_management_app.dto.task.TaskDto;
 import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
+import com.example.task_management_app.exception.EntityNotFoundException;
 import com.example.task_management_app.mapper.TaskMapper;
 import com.example.task_management_app.model.Project;
 import com.example.task_management_app.model.Task;
@@ -15,7 +16,6 @@ import com.example.task_management_app.model.User;
 import com.example.task_management_app.repository.ProjectRepository;
 import com.example.task_management_app.repository.TaskRepository;
 import com.example.task_management_app.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +27,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceImplTest {
@@ -85,20 +89,24 @@ class TaskServiceImplTest {
         TaskDto taskDto1 = taskToTaskDto(task1);
         TaskDto taskDto2 = taskToTaskDto(task2);
 
-        List<Task> tasks = List.of(task1, task2);
+        Pageable pageable = PageRequest.of(0,2);
+        List<Task> tasksList = List.of(task1, task2);
+        Page<Task> tasks = new PageImpl<>(tasksList, pageable, tasksList.size());
 
-        when(taskRepository.findAllByProjectId(project.getId())).thenReturn(tasks);
+        when(taskRepository.findAllByProjectId(project.getId(), pageable)).thenReturn(tasks);
         when(taskMapper.toDto(task1)).thenReturn(taskDto1);
         when(taskMapper.toDto(task2)).thenReturn(taskDto2);
 
-        List<TaskDto> actual = taskServiceImpl.findAllTasksForProject(project.getId());
+        List<TaskDto> actual = taskServiceImpl.findAllTasksForProject(project.getId(),
+                pageable).stream()
+                .toList();
         List<TaskDto> expected = List.of(taskDto1, taskDto2);
 
         assertNotNull(actual);
         assertEquals(2, actual.size());
         assertEquals(expected, actual);
 
-        verify(taskRepository).findAllByProjectId(project.getId());
+        verify(taskRepository).findAllByProjectId(project.getId(), pageable);
         verify(taskMapper).toDto(task1);
         verify(taskMapper).toDto(task2);
     }
