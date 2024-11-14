@@ -179,7 +179,7 @@ This web application addresses several core challenges in project and task manag
 ---
 <div>
 
-# <picture id = "getting-started-project"><img alt="Getting started project" src="images/startproject.png" width="40" height="40" title="Getting started project" style="vertical-align: middle"></picture> Getting started project
+# Getting started project
 
 ---
 

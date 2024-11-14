@@ -5,13 +5,13 @@ import com.example.task_management_app.dto.project.ProjectDto;
 import com.example.task_management_app.dto.project.ProjectUpdateRequestDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProjectService {
     ProjectDto createProject(@Valid ProjectCreateRequestDto requestDto);
 
-    List<ProjectDto> findUserProjects(Long userId, Pageable pageable);
+    Page<ProjectDto> findUserProjects(Long userId, Pageable pageable);
 
     ProjectDto findProjectById(@Positive Long id);
 

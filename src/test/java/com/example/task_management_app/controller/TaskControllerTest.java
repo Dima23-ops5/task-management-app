@@ -12,12 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.task_management_app.dto.task.TaskCreateRequestDto;
 import com.example.task_management_app.dto.task.TaskDto;
 import com.example.task_management_app.dto.task.TaskUpdateRequestDto;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import javax.sql.DataSource;
@@ -141,11 +141,9 @@ class TaskControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        List<TaskDto> actual = Arrays.stream(objectMapper.readValue(
-                result.getResponse().getContentAsString(),
-                        TaskDto[].class))
-                .sorted(Comparator.comparingLong(TaskDto::id))
-                .toList();
+        JsonNode root = objectMapper.readTree(result.getResponse().getContentAsString());
+        List<TaskDto> actual = objectMapper.convertValue(
+                root.path("content"), new TypeReference<List<TaskDto>>() {});
 
         assertNotNull(actual);
         assertEquals(expected.size(), actual.size());

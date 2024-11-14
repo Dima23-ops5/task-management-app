@@ -13,13 +13,13 @@ import com.example.task_management_app.dto.project.ProjectCreateRequestDto;
 import com.example.task_management_app.dto.project.ProjectDto;
 import com.example.task_management_app.dto.project.ProjectUpdateRequestDto;
 import com.example.task_management_app.dto.user.UserDto;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -144,10 +144,9 @@ class ProjectControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<ProjectDto> actual = Arrays.stream(objectMapper.readValue(
-                result.getResponse().getContentAsString(), ProjectDto[].class))
-                .sorted(Comparator.comparingLong(ProjectDto::id))
-                .toList();
+        JsonNode root = objectMapper.readTree(result.getResponse().getContentAsString());
+        List<ProjectDto> actual = objectMapper.convertValue(
+                root.path("content"), new TypeReference<List<ProjectDto>>() {});
 
         assertNotNull(actual);
         assertEquals(expected.size(), actual.size());

@@ -12,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -47,5 +49,49 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             return field + " " + message;
         }
         return exception.getDefaultMessage();
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put(STATUS, HttpStatus.NOT_FOUND);
+        body.put(TIMESTAMP, LocalDateTime.now());
+        body.put(ERRORS, ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailSendingException.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ResponseEntity<Object> handleEmailSendingException(EmailSendingException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put(STATUS, HttpStatus.SERVICE_UNAVAILABLE);
+        body.put(TIMESTAMP, LocalDateTime.now());
+        body.put(ERRORS, ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(DataProcessingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Object> handleDataProcessingException(DataProcessingException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put(STATUS, HttpStatus.INTERNAL_SERVER_ERROR);
+        body.put(TIMESTAMP, LocalDateTime.now());
+        body.put(ERRORS, ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<Object> handleRegistrationException(DataProcessingException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put(STATUS, HttpStatus.CONFLICT);
+        body.put(TIMESTAMP, LocalDateTime.now());
+        body.put(ERRORS, ex.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 }

@@ -9,9 +9,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -48,7 +48,7 @@ public class ProjectController {
     @Operation(summary = "Get all user's projects",
             description = "Retrieve and return all projects the currently authenticated user.")
     @PreAuthorize(value = "hasAuthority('USER')")
-    public List<ProjectDto> getAllUsersProjects(Authentication authentication,
+    public Page<ProjectDto> getAllUsersProjects(Authentication authentication,
                                                 @ParameterObject @PageableDefault(size = 10,
                                                 sort = "id")
                                                 Pageable pageable) {

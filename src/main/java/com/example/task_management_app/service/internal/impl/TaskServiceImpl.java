@@ -16,7 +16,6 @@ import com.example.task_management_app.repository.UserRepository;
 import com.example.task_management_app.service.internal.TaskService;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -52,11 +51,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> findAllTasksForProject(Long projectId, Pageable pageable) {
+    public Page<TaskDto> findAllTasksForProject(Long projectId, Pageable pageable) {
         Page<Task> taskPage = taskRepository.findAllByProjectId(projectId, pageable);
-        return taskPage.stream()
-                .map(taskMapper::toDto)
-                .toList();
+        return taskPage.map(taskMapper::toDto);
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.example.task_management_app.service.internal.CommentService;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,11 +46,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> findAllComments(Long taskId, Pageable pageable) {
-        Page<Comment> commentPage = commentRepository.findAllByTaskId(taskId, pageable);
-        return commentPage.stream()
-                .map(commentMapper::toDto)
-                .toList();
+    public Page<CommentDto> findAllComments(Long taskId, Pageable pageable) {
+        Page<Comment> comments = commentRepository.findAllByTaskId(taskId, pageable);
+        return comments.map(commentMapper::toDto);
     }
 
     @Async

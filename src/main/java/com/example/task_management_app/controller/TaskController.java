@@ -8,9 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -47,7 +47,7 @@ public class TaskController {
     @Operation(summary = "Get tasks for project",
             description = "Retrieve and return all tasks for projects")
     @PreAuthorize(value = "hasAuthority('USER')")
-    public List<TaskDto> getAllTasks(@RequestParam @Positive Long projectId,
+    public Page<TaskDto> getAllTasks(@RequestParam @Positive Long projectId,
                                      @ParameterObject @PageableDefault Pageable pageable) {
         return taskService.findAllTasksForProject(projectId, pageable);
     }
