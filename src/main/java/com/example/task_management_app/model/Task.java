@@ -57,7 +57,7 @@ public class Task {
     private Set<Attachment> attachment = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
     private Set<Comment> comment = new HashSet<>();
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "task_labels",
             joinColumns = @JoinColumn(name = "task_id"),

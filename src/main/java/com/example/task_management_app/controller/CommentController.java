@@ -8,9 +8,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -47,7 +47,7 @@ public class CommentController {
     @Operation(summary = "Get all task's comments",
             description = "Retrieve and return all task's comments")
     @PreAuthorize(value = "hasAuthority('USER')")
-    public List<CommentDto> getAllComments(@RequestParam @Positive Long taskId,
+    public Page<CommentDto> getAllComments(@RequestParam @Positive Long taskId,
                                            @ParameterObject @PageableDefault Pageable pageable) {
         return commentService.findAllComments(taskId, pageable);
     }

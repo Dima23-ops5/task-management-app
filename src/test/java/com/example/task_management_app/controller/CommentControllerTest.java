@@ -10,14 +10,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.example.task_management_app.dto.comment.CommentCreateRequestDto;
 import com.example.task_management_app.dto.comment.CommentDto;
 import com.example.task_management_app.service.external.EmailService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import javax.sql.DataSource;
 import lombok.SneakyThrows;
@@ -126,12 +126,12 @@ class CommentControllerTest {
         MvcResult result = mockMvc.perform(get("/api/comments")
                 .param("taskId", "1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn();
+                .andExpect(status().isOk())
+                .andReturn();
 
-        List<CommentDto> actual = Arrays.stream(objectMapper.readValue(
-                result.getResponse().getContentAsString(), CommentDto[].class))
-                .sorted(Comparator.comparingLong(CommentDto::id))
-                .toList();
+        JsonNode root = objectMapper.readTree(result.getResponse().getContentAsString());
+        List<CommentDto> actual = objectMapper.convertValue(
+                root.path("content"), new TypeReference<List<CommentDto>>() {});
 
         assertNotNull(actual);
         assertEquals(expected.size(), actual.size());

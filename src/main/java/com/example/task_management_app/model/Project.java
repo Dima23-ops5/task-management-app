@@ -47,7 +47,7 @@ public class Project {
     private Status status;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
     private Set<Task> tasks = new HashSet<>();
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "user_project",
             joinColumns = @JoinColumn(name = "project_id"),
