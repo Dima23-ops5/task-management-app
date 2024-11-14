@@ -84,7 +84,7 @@ This web application addresses several core challenges in project and task manag
 ## Development Tools:
 - #### <a href="https://maven.apache.org/" target="_blank">Maven </a>
 - #### <a href="https://junit.org/junit5/" target="_blank"> JUnit 5 </a>
-- #### <a href="https://www.docker.com/" target="_blank"><picture>Docker </a>
+- #### <a href="https://www.docker.com/" target="_blank">Docker </a>
 - #### <a href="https://testcontainers.com/" target="_blank">Testcontainers </a> (v1.20.0)
 - #### <a href="https://www.postman.com/" target="_blank">Postman </a>
 - #### <a href="https://www.jetbrains.com/ru-ru/idea/" target="_blank">IntelliJ IDEA </a>
